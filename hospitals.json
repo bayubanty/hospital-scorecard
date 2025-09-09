@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "Emory University Hospital",
+    "city": "Atlanta",
+    "state": "GA",
+    "rating": "A",
+    "specialties": ["Cardiology", "Neurology", "Oncology"]
+  },
+  {
+    "id": 2,
+    "name": "Grady Memorial Hospital",
+    "city": "Atlanta",
+    "state": "GA",
+    "rating": "B",
+    "specialties": ["Trauma", "Burn Center", "Emergency Medicine"]
+  },
+  {
+    "id": 3,
+    "name": "Piedmont Atlanta Hospital",
+    "city": "Atlanta",
+    "state": "GA",
+    "rating": "A-",
+    "specialties": ["Heart Surgery", "Orthopedics", "Cancer Care"]
+  },
+  {
+    "id": 4,
+    "name": "Northside Hospital",
+    "city": "Atlanta",
+    "state": "GA",
+    "rating": "A",
+    "specialties": ["Maternity", "Cancer", "Surgery"]
+  },
+  {
+    "id": 5,
+    "name": "WellStar Kennestone Hospital",
+    "city": "Marietta",
+    "state": "GA",
+    "rating": "B+",
+    "specialties": ["Cardiology", "Neurosurgery", "Pediatrics"]
+  },
+  {
+    "id": 6,
+    "name": "Augusta University Medical Center",
+    "city": "Augusta",
+    "state": "GA",
+    "rating": "B",
+    "specialties": ["Cancer", "Pediatrics", "Transplant"]
+  },
+  {
+    "id": 7,
+    "name": "Navicent Health Medical Center",
+    "city": "Macon",
+    "state": "GA",
+    "rating": "B",
+    "specialties": ["Stroke", "Heart Care", "Oncology"]
+  },
+  {
+    "id": 8,
+    "name": "St. Joseph’s Hospital",
+    "city": "Savannah",
+    "state": "GA",
+    "rating": "A",
+    "specialties": ["Cardiology", "Orthopedics", "General Surgery"]
+  },
+  {
+    "id": 9,
+    "name": "Tanner Medical Center",
+    "city": "Carrollton",
+    "state": "GA",
+    "rating": "B-",
+    "specialties": ["Emergency", "Cancer Care", "Orthopedics"]
+  },
+  {
+    "id": 10,
+    "name": "Phoebe Putney Memorial Hospital",
+    "city": "Albany",
+    "state": "GA",
+    "rating": "C+",
+    "specialties": ["Oncology", "Neurology", "Surgery"]
+  }
+]
