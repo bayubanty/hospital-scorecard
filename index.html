@@ -1,20 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hospital Scorecard</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Georgia Hospital System Scorecard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Georgia Hospital Scorecard</h1>
-  </header>
+    <header>
+        <div class="container">
+            <div class="top-nav">
+                <div class="logo">
+                    <span>WATCH</span>
+                    <span>Georgia Watch</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#">Rankings</a>
+                    <a href="#">Methodology</a>
+                    <a href="#">About Us</a>
+                </div>
+            </div>
+            <div class="header-content">
+                <h1>GEORGIA WATCH</h1>
+                <p>Advocating for patients and protecting consumers since 2002</p>
+            </div>
+        </div>
+    </header>
 
-  <main>
-    <div id="hospital-list" class="card-container"></div>
-  </main>
+    <div class="container main-content">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Filter Hospitals</h2>
+            
+            <div class="sidebar-section">
+                <h3>Filter by Hospital Type</h3>
+                <select class="sidebar-select" id="sidebarHospitalType">
+                    <option value="">All Hospital Types</option>
+                    <option value="rural">Rural</option>
+                    <option value="urban">Urban</option>
+                    <option value="nonprofit">Nonprofit</option>
+                    <option value="forprofit">For Profit</option>
+                </select>
+            </div>
+            
+            <div class="sidebar-section">
+                <h3>Filter by City</h3>
+                <select class="sidebar-select" id="sidebarCity">
+                    <option value="">All Cities</option>
+                    <option value="Atlanta">Atlanta</option>
+                    <option value="Savannah">Savannah</option>
+                    <option value="Augusta">Augusta</option>
+                    <option value="Columbus">Columbus</option>
+                    <option value="Macon">Macon</option>
+                    <option value="Athens">Athens</option>
+                    <option value="Roswell">Roswell</option>
+                    <option value="Albany">Albany</option>
+                    <option value="Johns Creek">Johns Creek</option>
+                    <option value="Warner Robins">Warner Robins</option>
+                    <option value="Alpharetta">Alpharetta</option>
+                    <option value="Marietta">Marietta</option>
+                    <option value="Valdosta">Valdosta</option>
+                    <option value="Smyrna">Smyrna</option>
+                    <option value="Brookhaven">Brookhaven</option>
+                    <option value="Rome">Rome</option>
+                    <option value="Duluth">Duluth</option>
+                    <option value="Peachtree Corners">Peachtree Corners</option>
+                    <option value="Lawrenceville">Lawrenceville</option>
+                    <option value="Gainesville">Gainesville</option>
+                </select>
+            </div>
+            
+            <button class="sidebar-button" id="sidebarSearchBtn">Apply Filters</button>
+            <button class="sidebar-button" id="sidebarResetBtn" style="background-color: #6c757d;">Reset Filters</button>
+        </aside>
 
-  <script src="script.js"></script>
+        <!-- Main content area -->
+        <main class="content-area">
+            <section class="search-section">
+                <div class="results-header">
+                    <div>
+                        <span id="resultsCount">Viewing 5 results</span>
+                    </div>
+                </div>
+
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th width="10%">Grade</th>
+                            <th width="70%">Hospital Name & Location</th>
+                            <th width="20%">Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="hospitalResults">
+                        <!-- Results will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="metrics-section">
+                <h2>CHOOSE A METRIC:</h2>
+                <ul class="metrics-list">
+                    <li data-metric="financialTransparency">Financial transparency and community benefit spending</li>
+                    <li data-metric="healthcareAffordability">Healthcare Affordability and billing</li>
+                    <li data-metric="accessAndResponsibility">Healthcare Access and Social Responsibility</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#">Georgia Watch</a>
+                    <a href="#">Rankings</a>
+                    <a href="#">Methodology</a>
+                    <a href="#">About Us</a>
+                    <a href="#">Donate</a>
+                    <a href="#">Legal/Privacy</a>
+                    <a href="#">Site Map</a>
+                </div>
+                <div class="copyright">
+                    <p>Georgia Watch is a non-profit, nonpartisan 501(c)3 organization. © 2024 Georgia Watch. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
