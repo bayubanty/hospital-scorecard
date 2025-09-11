@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h4>Hospital Information</h4>
                     <p><strong>Grade:</strong> <span class="grade-circle ${gradeClass}">${hospital.rank}</span></p>
                     <p><strong>Beds:</strong> ${hospital.beds}</p>
-                    <p><strong>Critical Access:</strong> ${hospital.criticalAccess}</p>
+                    <p><strong>Critical Access:</strong> ${hospital.criticalAccess</p>
                     <p><strong>County:</strong> ${hospital.county}</p>
                     <p><strong>Type:</strong> ${hospital.type}</p>
                     <p><strong>System:</strong> ${hospital.system || 'N/A'}</p>
