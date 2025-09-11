@@ -1,82 +1,118 @@
-[
-  {
-    "id": 1,
-    "name": "Emory University Hospital",
-    "city": "Atlanta",
-    "state": "GA",
-    "rating": "A",
-    "specialties": ["Cardiology", "Neurology", "Oncology"]
+{
+  "georgiaHospitals": [
+    {
+      "id": 1,
+      "rank": "A",
+      "name": "Auckland Memorial Hospital",
+      "address": "Gordon Ave, Therrasville, GA 31792",
+      "beds": 250,
+      "criticalAccess": "Yes",
+      "system": "",
+      "county": "Thomas",
+      "type": "Nonprofit",
+      "metrics": {
+        "birth": 4.2,
+        "mars": 3.8,
+        "witchers": 4.5,
+        "financialTransparency": 3.9,
+        "healthcareAffordability": 4.1,
+        "accessAndResponsibility": 4.3
+      },
+      "lat": 32.7767,
+      "lng": -83.9206
+    },
+    {
+      "id": 2,
+      "rank": "B",
+      "name": "Northside Hospital",
+      "address": "1000 Johnson Ferry Rd, Atlanta, GA 30342",
+      "beds": 180,
+      "criticalAccess": "No",
+      "system": "",
+      "county": "Fulton",
+      "type": "Nonprofit",
+      "metrics": {
+        "birth": 4.5,
+        "mars": 4.2,
+        "witchers": 4.1,
+        "financialTransparency": 4.4,
+        "healthcareAffordability": 4.0,
+        "accessAndResponsibility": 4.6
+      },
+      "lat": 33.9176,
+      "lng": -84.3519
+    },
+    {
+      "id": 3,
+      "rank": "C",
+      "name": "Memorial Health University Medical Center",
+      "address": "4700 Waters Ave, Savannah, GA 31404",
+      "beds": 350,
+      "criticalAccess": "No",
+      "system": "",
+      "county": "Chatham",
+      "type": "Nonprofit",
+      "metrics": {
+        "birth": 3.9,
+        "mars": 4.0,
+        "witchers": 4.2,
+        "financialTransparency": 4.1,
+        "healthcareAffordability": 3.8,
+        "accessAndResponsibility": 4.4
+      },
+      "lat": 32.0315,
+      "lng": -81.0670
+    },
+    {
+      "id": 4,
+      "rank": "D",
+      "name": "Coffee Regional Medical Center",
+      "address": "1101 Ocilla Rd, Douglas, GA 31533",
+      "beds": 120,
+      "criticalAccess": "Yes",
+      "system": "",
+      "county": "Coffee",
+      "type": "Nonprofit",
+      "metrics": {
+        "birth": 4.0,
+        "mars": 3.7,
+        "witchers": 4.0,
+        "financialTransparency": 3.8,
+        "healthcareAffordability": 4.2,
+        "accessAndResponsibility": 4.1
+      },
+      "lat": 31.5610,
+      "lng": -82.8495
+    },
+    {
+      "id": 5,
+      "rank": "E",
+      "name": "Early Memorial Hospital",
+      "address": "11745 Columbia St, Blakely, GA 39823",
+      "beds": 95,
+      "criticalAccess": "Yes",
+      "system": "",
+      "county": "Early",
+      "type": "Nonprofit",
+      "metrics": {
+        "birth": 3.8,
+        "mars": 3.9,
+        "witchers": 3.7,
+        "financialTransparency": 3.6,
+        "healthcareAffordability": 4.3,
+        "accessAndResponsibility": 3.9
+      },
+      "lat": 31.3777,
+      "lng": -84.9341
+    }
+  ],
+  "metricsDescription": {
+    "birth": "Measures quality of birth-related services",
+    "mars": "Measures medical assistance response score",
+    "witchers": "Measures wait times and patient flow",
+    "financialTransparency": "Measures financial transparency and community benefit spending",
+    "healthcareAffordability": "Measures healthcare affordability and billing practices",
+    "accessAndResponsibility": "Measures healthcare access and social responsibility"
   },
-  {
-    "id": 2,
-    "name": "Grady Memorial Hospital",
-    "city": "Atlanta",
-    "state": "GA",
-    "rating": "B",
-    "specialties": ["Trauma", "Burn Center", "Emergency Medicine"]
-  },
-  {
-    "id": 3,
-    "name": "Piedmont Atlanta Hospital",
-    "city": "Atlanta",
-    "state": "GA",
-    "rating": "A-",
-    "specialties": ["Heart Surgery", "Orthopedics", "Cancer Care"]
-  },
-  {
-    "id": 4,
-    "name": "Northside Hospital",
-    "city": "Atlanta",
-    "state": "GA",
-    "rating": "A",
-    "specialties": ["Maternity", "Cancer", "Surgery"]
-  },
-  {
-    "id": 5,
-    "name": "WellStar Kennestone Hospital",
-    "city": "Marietta",
-    "state": "GA",
-    "rating": "B+",
-    "specialties": ["Cardiology", "Neurosurgery", "Pediatrics"]
-  },
-  {
-    "id": 6,
-    "name": "Augusta University Medical Center",
-    "city": "Augusta",
-    "state": "GA",
-    "rating": "B",
-    "specialties": ["Cancer", "Pediatrics", "Transplant"]
-  },
-  {
-    "id": 7,
-    "name": "Navicent Health Medical Center",
-    "city": "Macon",
-    "state": "GA",
-    "rating": "B",
-    "specialties": ["Stroke", "Heart Care", "Oncology"]
-  },
-  {
-    "id": 8,
-    "name": "St. Joseph’s Hospital",
-    "city": "Savannah",
-    "state": "GA",
-    "rating": "A",
-    "specialties": ["Cardiology", "Orthopedics", "General Surgery"]
-  },
-  {
-    "id": 9,
-    "name": "Tanner Medical Center",
-    "city": "Carrollton",
-    "state": "GA",
-    "rating": "B-",
-    "specialties": ["Emergency", "Cancer Care", "Orthopedics"]
-  },
-  {
-    "id": 10,
-    "name": "Phoebe Putney Memorial Hospital",
-    "city": "Albany",
-    "state": "GA",
-    "rating": "C+",
-    "specialties": ["Oncology", "Neurology", "Surgery"]
-  }
-]
+  "lastUpdated": "2024-05-01"
+}
