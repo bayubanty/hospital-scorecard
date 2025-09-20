@@ -6,7 +6,750 @@
     <title>Georgia Hospital System Scorecard</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', Century Gothic, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header styles */
+        header {
+            background: linear-gradient(to right, #6fb353, #0053a1);
+            color: white;
+            padding: 15px 0;
+            position: relative;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo span:first-child {
+            background-color: #ffcc00;
+            color: #0053a1;
+            padding: 5px;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 16px;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.9;
+            text-decoration: underline;
+        }
+
+        .header-content {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .header-content h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-content p {
+            font-size: 18px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        /* GEORGIA WATCH Logo */
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 15px;
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-img {
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 1.2;
+            color: white;
+            text-align: center;
+        }
+
+        .logo-img span:first-child {
+            font-size: 28px;
+            display: block;
+            color: #ff9900;
+        }
+
+        .logo-img span:last-child {
+            font-size: 14px;
+            display: block;
+            margin-top: 5px;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+
+        /* Main content and sidebar layout */
+        .main-content {
+            display: flex;
+            flex: 1;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        /* Metric dropdown styles */
+        .metric-dropdown {
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .metric-dropdown:hover {
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-header {
+            background-color: #6fb353;
+            padding: 12px 15px;
+            font-weight: 500;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-header:hover {
+            background-color: #5a9e45;
+        }
+
+        .dropdown-header.active {
+            background-color: #5a9e45;
+        }
+
+        .dropdown-content {
+            display: none;
+            padding: 12px 15px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+
+        .dropdown-content.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .check {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            cursor: pointer;
+            padding: 5px 0;
+            transition: background-color 0.2s;
+            border-radius: 4px;
+        }
+
+        .check:hover {
+            background-color: #f0f0f0;
+        }
+
+        .check input[type="checkbox"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        /* Adjust metrics section for new layout */
+        .metrics-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        #applyMetricsBtn {
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            width: 300px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            color: #0053a1;
+            margin-bottom: 20px;
+            font-size: 22px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .sidebar-section {
+            margin-bottom: 20px;
+        }
+
+        .sidebar-section h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .sidebar-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 15px;
+            background-color: white;
+            transition: border-color 0.3s;
+        }
+
+        .sidebar-select:focus {
+            border-color: #6fb353;
+            outline: none;
+        }
+
+        .sidebar-button {
+            width: 100%;
+            background-color: #f48810;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-button:hover {
+            background-color: #e67e0f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-button:active {
+            transform: translateY(0);
+        }
+
+        /* Checkbox group styling */
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-group .check {
+            margin-bottom: 5px;
+        }
+
+        /* Location search section */
+        .location-search {
+            background-color: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2e7d32;
+        }
+
+        .location-search h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: #6fb353;
+            outline: none;
+        }
+
+        .radius-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            background-color: white;
+            transition: border-color 0.3s;
+        }
+
+        .radius-select:focus {
+            border-color: #6fb353;
+            outline: none;
+        }
+
+        /* Content area styles */
+        .content-area {
+            flex: 1;
+        }
+
+        /* Search section */
+        .search-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px 0;
+            border-bottom: 2px solid #eee;
+        }
+
+        /* Results table */
+        .results-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            margin-bottom: 20px;
+        }
+
+        .results-table th {
+            background-color: #f0f0f0;
+            text-align: left;
+            padding: 12px 15px;
+            border-bottom: 2px solid #ddd;
+            font-weight: 600;
+        }
+
+        .results-table td {
+            padding: 12px 15px;
+            border: 2px solid #6fb353;
+            border-radius: 8px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .results-table tr {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .results-table tr:hover td {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Grade circles */
+        .grade-circle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 20px;
+            color: white;
+            margin-right: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .grade-A {
+            background-color: #2ecc71; /* Green */
+        }
+
+        .grade-B {
+            background-color: #57d68d; /* Light Green */
+        }
+
+        .grade-C {
+            background-color: #ffe135; /* Lemon */
+            color: #333;
+        }
+
+        .grade-D {
+            background-color: #ffd700; /* Yellow */
+            color: #333;
+        }
+
+        .grade-F {
+            background-color: #e74c3c; /* Red */
+        }
+
+        /* Hospital name link */
+        .hospital-link {
+            color: #0053a1;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .hospital-link:hover {
+            color: #f48810;
+            text-decoration: underline;
+        }
+
+        /* Details button */
+        .details-button {
+            background-color: #f48810;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .details-button:hover {
+            background-color: #0053a1;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Dropdown details section */
+        .hospital-details-dropdown {
+            display: none;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #ddd;
+            border-radius: 0 0 8px 8px;
+            margin-top: -10px;
+            position: relative;
+            z-index: 1;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .details-section {
+            margin-bottom: 15px;
+        }
+
+        .details-section h4 {
+            color: #0053a1;
+            margin-bottom: 10px;
+            font-size: 16px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .details-section p {
+            margin-bottom: 8px;
+        }
+
+        .metric-bars {
+            margin-top: 15px;
+        }
+
+        .metric-bar {
+            margin-bottom: 15px;
+        }
+
+        .metric-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .metric-value {
+            font-weight: 500;
+        }
+
+        .bar-container {
+            height: 20px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(to right, #6fb353, #0053a1);
+            border-radius: 10px;
+            transition: width 1s ease;
+        }
+
+        /* Content wrapper */
+        .content-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Map section - now positioned next to main content */
+        .map-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .map-section h2 {
+            color: #0053a1;
+            margin-bottom: 15px;
+            font-size: 22px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+        }
+
+        #mainMap {
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* For larger screens, make it a row layout */
+        @media (min-width: 992px) {
+            .content-wrapper {
+                flex-direction: row;
+            }
+            
+            .content-area {
+                flex: 2;
+            }
+            
+            .map-section {
+                flex: 1;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(to right, #6fb353, #0053a1);
+            color: white;
+            padding: 30px 0;
+            margin-top: 40px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        .copyright {
+            margin-top: 20px;
+            font-size: 14px;
+            text-align: center;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        /* Loading indicator */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #6fb353;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .top-nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .main-content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                order: 2;
+                position: relative;
+                top: 0;
+                max-height: none;
+            }
+
+            .content-area {
+                order: 1;
+            }
+
+            .results-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .results-table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Logo responsive adjustments */
+            .logo-container {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin: 15px 0;
+            }
+            
+            .header-content h1 {
+                font-size: 28px;
+            }
+            
+            .header-content p {
+                font-size: 16px;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -22,6 +765,14 @@
                     <a href="#">About Us</a>
                 </div>
             </div>
+            
+            <div class="logo-container">
+                <div class="logo-img">
+                    <span>GEORGIA</span>
+                    <span>WATCH</span>
+                </div>
+            </div>
+            
             <div class="header-content">
                 <h1>GEORGIA WATCH</h1>
                 <p>Advocating for patients and protecting consumers since 2002</p>
@@ -34,94 +785,208 @@
         <aside class="sidebar">
             <h2>Filter Hospitals</h2>
             
-            <div class="sidebar-section">
-                <h3>Filter by Hospital Type</h3>
-                <select class="sidebar-select" id="sidebarHospitalType">
-                    <option value="">All Hospital Types</option>
-                    <option value="rural">Rural</option>
-                    <option value="urban">Urban</option>
-                    <option value="nonprofit">Nonprofit</option>
-                    <option value="forprofit">For Profit</option>
+            <!-- Location Search Section -->
+            <div class="location-search">
+                <h3>Search by Location</h3>
+                <input type="text" class="search-input" id="zipCodeInput" placeholder="Enter ZIP code">
+                <select class="radius-select" id="radiusSelect">
+                    <option value="">Select radius</option>
+                    <option value="5">5 miles</option>
+                    <option value="10">10 miles</option>
+                    <option value="25">25 miles</option>
+                    <option value="50">50 miles</option>
+                    <option value="100">100 miles</option>
                 </select>
+                <button class="sidebar-button" id="locationSearchBtn">Search Location</button>
             </div>
             
-            <div class="sidebar-section">
-                <h3>Filter by City</h3>
-                <select class="sidebar-select" id="sidebarCity">
-                    <option value="">All Cities</option>
-                    <option value="Atlanta">Atlanta</option>
-                    <option value="Savannah">Savannah</option>
-                    <option value="Augusta">Augusta</option>
-                    <option value="Columbus">Columbus</option>
-                    <option value="Macon">Macon</option>
-                    <option value="Athens">Athens</option>
-                    <option value="Roswell">Roswell</option>
-                    <option value="Albany">Albany</option>
-                    <option value="Johns Creek">Johns Creek</option>
-                    <option value="Warner Robins">Warner Robins</option>
-                    <option value="Alpharetta">Alpharetta</option>
-                    <option value="Marietta">Marietta</option>
-                    <option value="Valdosta">Valdosta</option>
-                    <option value="Smyrna">Smyrna</option>
-                    <option value="Brookhaven">Brookhaven</option>
-                    <option value="Rome">Rome</option>
-                    <option value="Duluth">Duluth</option>
-                    <option value="Peachtree Corners">Peachtree Corners</option>
-                    <option value="Lawrenceville">Lawrenceville</option>
-                    <option value="Gainesville">Gainesville</option>
-                </select>
+            <!-- Hospital Type Dropdown -->
+            <div class="metric-dropdown">
+                <div class="dropdown-header" data-metric="hospitalType">
+                    <span>Filter by Hospital Type</span>
+                    <span class="dropdown-arrow">▼</span>
+                </div>
+                <div class="dropdown-content">
+                    <div class="checkbox-group">
+                        <label class="check">
+                            <input type="checkbox" name="hospitalType" value="" checked>
+                            <span>All Hospital Types</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" name="hospitalType" value="rural">
+                            <span>Rural</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" name="hospitalType" value="urban">
+                            <span>Urban</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" name="hospitalType" value="nonprofit">
+                            <span>Nonprofit</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" name="hospitalType" value="forprofit">
+                            <span>For Profit</span>
+                        </label>
+                    </div>
+                </div>
             </div>
-            
-            <button class="sidebar-button" id="sidebarSearchBtn">Apply Filters</button>
-            <button class="sidebar-button" id="sidebarResetBtn" style="background-color: #6c757d;">Reset Filters</button>
-        </aside>
 
-        <!-- Main content area -->
-        <main class="content-area">
-            <section class="search-section">
-                <div class="results-header">
-                    <div>
-                        <span id="resultsCount">Viewing 5 results</span>
+     <!-- Metrics section in sidebar -->
+            <div class="metrics-section">
+                <h3>CHOOSE A METRIC:</h3>
+                
+                <!-- Financial Transparency Dropdown -->
+                <div class="metric-dropdown">
+                    <div class="dropdown-header" data-metric="financialTransparency">
+                        <span>Financial transparency and community benefit spending</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </div>
+                    <div class="dropdown-content">
+                        <label class="check">
+                            <input type="checkbox" id="fBalanceGrowth" data-category="financialTransparency">
+                            <span>Balance Growth</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fTransparency" data-category="financialTransparency">
+                            <span>Transparency</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fFiscalHealth" data-category="financialTransparency">
+                            <span>Fiscal health</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fStaffing" data-category="financialTransparency">
+                            <span>Staffing</span>
+                        </label>
                     </div>
                 </div>
 
-                <table class="results-table">
-                    <thead>
-                        <tr>
-                            <th width="10%">Grade</th>
-                            <th width="70%">Hospital Name & Location</th>
-                            <th width="20%">Details</th>
-                        </tr>
-                    </thead>
-                    <tbody id="hospitalResults">
-                        <!-- Results will be populated by JavaScript -->
-                    </tbody>
-                </table>
-            </section>
+                <!-- Community Benefit Spending Dropdown -->
+                <div class="metric-dropdown">
+                    <div class="dropdown-header" data-metric="communityBenefit">
+                        <span>Community Benefit Spending</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </div>
+                    <div class="dropdown-content">
+                        <label class="check">
+                            <input type="checkbox" id="fTaxBenefit" data-category="communityBenefit">
+                            <span>Tax Benefit</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fQualityOfCBS" data-category="communityBenefit">
+                            <span>Quality of CBS</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fStrategicUse" data-category="communityBenefit">
+                            <span>Strategic Use</span>
+                        </label>
+                    </div>
+                </div>
 
-            <section class="metrics-section">
-                <h2>CHOOSE A METRIC:</h2>
-                <ul class="metrics-list">
-                    <li data-metric="financialTransparency">Financial transparency and community benefit spending</li>
-                    <li data-metric="healthcareAffordability">Healthcare Affordability and billing</li>
-                    <li data-metric="accessAndResponsibility">Healthcare Access and Social Responsibility</li>
-                </ul>
+                <!-- Healthcare Affordability Dropdown -->
+                <div class="metric-dropdown">
+                    <div class="dropdown-header" data-metric="healthcareAffordability">
+                        <span>Healthcare Affordability and billing</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </div>
+                    <div class="dropdown-content">
+                        <label class="check">
+                            <input type="checkbox" id="fFinancialBurden" data-category="healthcareAffordability">
+                            <span>Financial Burden</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fCharityCare" data-category="healthcareAffordability">
+                            <span>Charity Care</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fMedicalDebt" data-category="healthcareAffordability">
+                            <span>Medical Debt</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Healthcare Access Dropdown -->
+                <div class="metric-dropdown">
+                    <div class="dropdown-header" data-metric="accessAndResponsibility">
+                        <span>Healthcare Access and Social Responsibility</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </div>
+                    <div class="dropdown-content">
+                        <label class="check">
+                            <input type="checkbox" id="fRangeOfServices" data-category="accessAndResponsibility">
+                            <span>Range of Services</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fDemographicAlignment" data-category="accessAndResponsibility">
+                            <span>Demographic Alignment</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fWorkforceTraining" data-category="accessAndResponsibility">
+                            <span>Workforce Training</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fPayEquityRatio" data-category="accessAndResponsibility">
+                            <span>Pay Equity Ratio</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <button class="sidebar-button" id="sidebarSearchBtn">Apply Filters</button>
+            <button class="sidebar-button" id="sidebarResetBtn" style="background-color: #6c757d;">Reset Filters</button>
+            <button class="sidebar-button" id="downloadBtn" style="background-color: #6c757d;">Download Results</button>
+        </aside>
+
+        <!-- Main content area and map side by side -->
+        <div class="content-wrapper">
+            <!-- Main content area -->
+            <main class="content-area">
+                <section class="search-section">
+                    <div class="results-header">
+                        <div>
+                            <span id="resultsCount">Viewing 0 results</span>
+                        </div>
+                        <div class="loading" id="resultsLoading">
+                            <div class="loading-spinner"></div>
+                            <p>Loading results...</p>
+                        </div>
+                    </div>
+                    
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th width="10%">Grade</th>
+                                <th width="70%">Hospital Name & Location</th>
+                                <th width="20%">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="hospitalResults">
+                            <!-- Results will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </section>
+            </main>
+
+            <!-- Map section - now positioned next to main content -->
+            <section class="map-section">
+                <h2>HOSPITAL LOCATIONS</h2>
+                <div id="mainMap"></div>
             </section>
-        </main>
+        </div>
     </div>
 
     <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-links">
-                    <a href="#">Georgia Watch</a>
-                    <a href="#">Rankings</a>
-                    <a href="#">Methodology</a>
-                    <a href="#">About Us</a>
-                    <a href="#">Donate</a>
-                    <a href="#">Legal/Privacy</a>
-                    <a href="#">Site Map</a>
-                </div>
+                <ul class="footer-links">
+                    <li><a href="#">Georgia Watch</a></li>
+                    <li><a href="#">Rankings</a></li>
+                    <li><a href="#">Methodology</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Donate</a></li>
+                    <li><a href="#">Legal/Privacy</a></li>
+                    <li><a href="#">Site Map</a></li>
+                </ul>
                 <div class="copyright">
                     <p>Georgia Watch is a non-profit, nonpartisan 501(c)3 organization. © 2024 Georgia Watch. All Rights Reserved.</p>
                 </div>
@@ -129,7 +994,651 @@
         </div>
     </footer>
 
+    <div class="toast" id="toast"></div>
+
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let hospitalsData = [];
+            let filteredHospitals = [];
+            let currentMetric = '';
+            let activeDropdown = null;
+            let mainMap = null;
+            let markers = [];
+            let locationCircle = null;
+            let markerLayerGroup = L.layerGroup();
+
+            // Sample hospital data with coordinates (in a real app, this would come from a JSON file)
+            hospitalsData = [
+                {
+                    "RECORD_ID": 110001,
+                    "Name": "Hamilton Medical Center",
+                    "State": "GA",
+                    "City": "Dalton",
+                    "Address": "1200 MEMORIAL DRIVE",
+                    "Zip": 30720,
+                    "Lat": 34.773,
+                    "Lng": -84.971,
+                    "TYPE_NonProfit": 1,
+                    "TYPE_ForProfit": 0,
+                    "TYPE_urban": 1,
+                    "TYPE_rural": 0,
+                    "TIER_1_GRADE_Lown_Composite": "C",
+                    "BalanceGrowth": 78,
+                    "Transparency": 65,
+                    "FiscalHealth": 82,
+                    "Staffing": 71,
+                    "TaxBenefit": 89,
+                    "QualityOfCBS": 76,
+                    "StrategicUse": 68,
+                    "FinancialBurden": 45,
+                    "CharityCare": 92,
+                    "MedicalDebt": 38,
+                    "RangeOfServices": 85,
+                    "DemographicAlignment": 72,
+                    "WorkforceTraining": 88,
+                    "PayEquityRatio": 63
+                },
+                {
+                    "RECORD_ID": 110002,
+                    "Name": "Upson Regional Medical Center",
+                    "State": "GA",
+                    "City": "Thomaston",
+                    "Address": "801 W GORDON STREET",
+                    "Zip": 30286,
+                    "Lat": 32.888,
+                    "Lng": -84.327,
+                    "TYPE_NonProfit": 1,
+                    "TYPE_ForProfit": 0,
+                    "TYPE_urban": 0,
+                    "TYPE_rural": 1,
+                    "TIER_1_GRADE_Lown_Composite": "B",
+                    "BalanceGrowth": 85,
+                    "Transparency": 72,
+                    "FiscalHealth": 88,
+                    "Staffing": 79,
+                    "TaxBenefit": 92,
+                    "QualityOfCBS": 81,
+                    "StrategicUse": 75,
+                    "FinancialBurden": 58,
+                    "CharityCare": 95,
+                    "MedicalDebt": 52,
+                    "RangeOfServices": 78,
+                    "DemographicAlignment": 85,
+                    "WorkforceTraining": 90,
+                    "PayEquityRatio": 70
+                },
+                {
+                    "RECORD_ID": 110003,
+                    "Name": "Memorial Satilla Health",
+                    "State": "GA",
+                    "City": "Waycross",
+                    "Address": "1900 TEBEAU STREET",
+                    "Zip": 31501,
+                    "Lat": 31.214,
+                    "Lng": -82.355,
+                    "TYPE_NonProfit": 0,
+                    "TYPE_ForProfit": 1,
+                    "TYPE_urban": 0,
+                    "TYPE_rural": 1,
+                    "TIER_1_GRADE_Lown_Composite": "B",
+                    "BalanceGrowth": 82,
+                    "Transparency": 68,
+                    "FiscalHealth": 85,
+                    "Staffing": 76,
+                    "TaxBenefit": 87,
+                    "QualityOfCBS": 79,
+                    "StrategicUse": 72,
+                    "FinancialBurden": 62,
+                    "CharityCare": 88,
+                    "MedicalDebt": 55,
+                    "RangeOfServices": 82,
+                    "DemographicAlignment": 78,
+                    "WorkforceTraining": 85,
+                    "PayEquityRatio": 65
+                },
+                {
+                    "RECORD_ID": 110004,
+                    "Name": "Atlanta Urban Medical",
+                    "State": "GA",
+                    "City": "Atlanta",
+                    "Address": "123 PEACHTREE ST",
+                    "Zip": 30303,
+                    "Lat": 33.755,
+                    "Lng": -84.390,
+                    "TYPE_NonProfit": 1,
+                    "TYPE_ForProfit": 0,
+                    "TYPE_urban": 1,
+                    "TYPE_rural": 0,
+                    "TIER_1_GRADE_Lown_Composite": "A",
+                    "BalanceGrowth": 95,
+                    "Transparency": 88,
+                    "FiscalHealth": 92,
+                    "Staffing": 90,
+                    "TaxBenefit": 96,
+                    "QualityOfCBS": 91,
+                    "StrategicUse": 89,
+                    "FinancialBurden": 82,
+                    "CharityCare": 98,
+                    "MedicalDebt": 75,
+                    "RangeOfServices": 94,
+                    "DemographicAlignment": 90,
+                    "WorkforceTraining": 95,
+                    "PayEquityRatio": 85
+                },
+                {
+                    "RECORD_ID": 110005,
+                    "Name": "Metro For-Profit Hospital",
+                    "State": "GA",
+                    "City": "Atlanta",
+                    "Address": "456 METRO AVE",
+                    "Zip": 30305,
+                    "Lat": 33.830,
+                    "Lng": -84.382,
+                    "TYPE_NonProfit": 0,
+                    "TYPE_ForProfit": 1,
+                    "TYPE_urban": 1,
+                    "TYPE_rural": 0,
+                    "TIER_1_GRADE_Lown_Composite": "D",
+                    "BalanceGrowth": 45,
+                    "Transparency": 38,
+                    "FiscalHealth": 52,
+                    "Staffing": 42,
+                    "TaxBenefit": 35,
+                    "QualityOfCBS": 48,
+                    "StrategicUse": 40,
+                    "FinancialBurden": 25,
+                    "CharityCare": 55,
+                    "MedicalDebt": 20,
+                    "RangeOfServices": 60,
+                    "DemographicAlignment": 45,
+                    "WorkforceTraining": 58,
+                    "PayEquityRatio": 35
+                }
+            ];
+
+            filteredHospitals = [...hospitalsData];
+            
+            // Display hospitals
+            displayHospitals(filteredHospitals);
+            
+            // Initialize the map
+            initMainMap();
+            
+            // Add event listeners
+            setupEventListeners();
+
+            function setupEventListeners() {
+                // Add toggle functionality to all dropdowns (including hospital type)
+                const dropdownHeaders = document.querySelectorAll('.dropdown-header');
+                dropdownHeaders.forEach(header => {
+                    header.addEventListener('click', function() {
+                        const content = this.nextElementSibling;
+                        const isActive = this.classList.contains('active');
+                        
+                        // Close all dropdowns
+                        document.querySelectorAll('.dropdown-content').forEach(item => {
+                            item.classList.remove('show');
+                        });
+                        document.querySelectorAll('.dropdown-header').forEach(item => {
+                            item.classList.remove('active');
+                        });
+                        
+                        // Open this dropdown if it wasn't active
+                        if (!isActive) {
+                            content.classList.add('show');
+                            this.classList.add('active');
+                        }
+                    });
+                });
+
+                // Add change event to hospital type checkboxes
+                const hospitalTypeCheckboxes = document.querySelectorAll('input[name="hospitalType"]');
+                hospitalTypeCheckboxes.forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        // If "All" is checked, uncheck others
+                        if (this.value === '' && this.checked) {
+                            hospitalTypeCheckboxes.forEach(cb => {
+                                if (cb !== this) cb.checked = false;
+                            });
+                        } 
+                        // If any other is checked, uncheck "All"
+                        else if (this.checked) {
+                            document.querySelector('input[name="hospitalType"][value=""]').checked = false;
+                        }
+                        
+                        // If nothing is checked, check "All"
+                        const anyChecked = Array.from(hospitalTypeCheckboxes).some(cb => cb.checked);
+                        if (!anyChecked) {
+                            document.querySelector('input[name="hospitalType"][value=""]').checked = true;
+                        }
+                    });
+                });
+
+                // Apply filters button
+                document.getElementById('sidebarSearchBtn').addEventListener('click', function() {
+                    applyAllFilters();
+                });
+
+                // Location search button
+                document.getElementById('locationSearchBtn').addEventListener('click', function() {
+                    searchByLocation();
+                });
+
+                // Reset filters button
+                document.getElementById('sidebarResetBtn').addEventListener('click', function() {
+                    resetAllFilters();
+                });
+
+                // Download button
+                document.getElementById('downloadBtn').addEventListener('click', function() {
+                    downloadResults();
+                });
+
+                // Add click event to details buttons (using event delegation)
+                document.getElementById('hospitalResults').addEventListener('click', function(e) {
+                    if (e.target.classList.contains('details-button')) {
+                        const hospitalId = e.target.getAttribute('data-id');
+                        const hospital = hospitalsData.find(h => h.RECORD_ID == hospitalId);
+                        const row = e.target.closest('tr');
+                        const detailsRow = row.nextElementSibling;
+                        
+                        // If this dropdown is already open, close it
+                        if (activeDropdown === detailsRow) {
+                            detailsRow.style.display = 'none';
+                            activeDropdown = null;
+                            e.target.textContent = 'View Details';
+                            return;
+                        }
+                        
+                        // Close any open dropdown
+                        if (activeDropdown) {
+                            activeDropdown.style.display = 'none';
+                            activeDropdown.previousElementSibling.querySelector('.details-button').textContent = 'View Details';
+                        }
+                        
+                        // If this row doesn't have a details row, create one
+                        if (!detailsRow || !detailsRow.classList.contains('hospital-details-dropdown')) {
+                            const newRow = document.createElement('tr');
+                            newRow.classList.add('hospital-details-dropdown');
+                            newRow.innerHTML = `<td colspan="3"><div class="details-content"></div></td>`;
+                            row.parentNode.insertBefore(newRow, row.nextSibling);
+                            showHospitalDetails(hospital, newRow.querySelector('.details-content'));
+                            activeDropdown = newRow;
+                        } else {
+                            detailsRow.style.display = 'table-row';
+                            activeDropdown = detailsRow;
+                        }
+                        
+                        e.target.textContent = 'Hide Details';
+                    }
+                });
+            }
+
+            function showToast(message, duration = 3000) {
+                const toast = document.getElementById('toast');
+                toast.textContent = message;
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, duration);
+            }
+
+            function searchByLocation() {
+                const zipCode = document.getElementById('zipCodeInput').value.trim();
+                const radius = document.getElementById('radiusSelect').value;
+                
+                if (!zipCode || !radius) {
+                    showToast("Please enter a ZIP code and select a radius");
+                    return;
+                }
+                
+                // Show loading indicator
+                document.getElementById('resultsLoading').style.display = 'block';
+                
+                // Simulate API call with timeout
+                setTimeout(() => {
+                    // In a real application, you would geocode the ZIP code to get coordinates
+                    // For this demo, we'll use a random central point in Georgia
+                    const centerLat = 33.7490;
+                    const centerLng = -84.3880;
+                    
+                    // Convert radius from miles to approximate degrees (rough conversion)
+                    const radiusInDegrees = radius / 69;
+                    
+                    // Clear previous location circle
+                    if (locationCircle) {
+                        mainMap.removeLayer(locationCircle);
+                    }
+                    
+                    // Add circle to map showing search area
+                    locationCircle = L.circle([centerLat, centerLng], {
+                        color: '#6fb353',
+                        fillColor: '#6fb353',
+                        fillOpacity: 0.2,
+                        radius: radius * 1609.34 // Convert miles to meters
+                    }).addTo(mainMap);
+                    
+                    // Filter hospitals by proximity to the center point
+                    filteredHospitals = hospitalsData.filter(hospital => {
+                        // Calculate distance using simple Euclidean distance (for demo purposes)
+                        // In a real app, you would use Haversine formula for accurate distance
+                        const latDiff = hospital.Lat - centerLat;
+                        const lngDiff = hospital.Lng - centerLng;
+                        const distance = Math.sqrt(latDiff * latDiff + lngDiff * lngDiff) * 69; // Approx miles
+                        
+                        return distance <= radius;
+                    });
+                    
+                    displayHospitals(filteredHospitals);
+                    updateMapMarkers(filteredHospitals);
+                    
+                    // Center map on the search location
+                    mainMap.setView([centerLat, centerLng], 9);
+                    
+                    // Hide loading indicator
+                    document.getElementById('resultsLoading').style.display = 'none';
+                    
+                    showToast(`Found ${filteredHospitals.length} hospitals within ${radius} miles`);
+                }, 800);
+            }
+
+            function applyAllFilters() {
+                // Show loading indicator
+                document.getElementById('resultsLoading').style.display = 'block';
+                
+                setTimeout(() => {
+                    // Get selected hospital types from checkboxes
+                    const typeCheckboxes = document.querySelectorAll('input[name="hospitalType"]:checked');
+                    const selectedTypes = Array.from(typeCheckboxes).map(cb => cb.value);
+                    
+                    // If "All Hospital Types" is selected or no specific types are selected, show all
+                    const showAllTypes = selectedTypes.includes('') || selectedTypes.length === 0;
+                    
+                    // Get selected metrics from dropdowns
+                    const metricFilters = getSelectedMetrics();
+                    
+                    filteredHospitals = hospitalsData.filter(hospital => {
+                        // Type matching logic
+                        let typeMatch = showAllTypes;
+                        
+                        if (!showAllTypes) {
+                            typeMatch = selectedTypes.some(type => {
+                                switch(type) {
+                                    case 'rural': return hospital.TYPE_rural === 1;
+                                    case 'urban': return hospital.TYPE_urban === 1;
+                                    case 'nonprofit': return hospital.TYPE_NonProfit === 1;
+                                    case 'forprofit': return hospital.TYPE_ForProfit === 1;
+                                    default: return false;
+                                }
+                            });
+                        }
+                        
+                        // Apply metric filters if any are selected
+                        let metricMatch = true;
+                        if (metricFilters.length > 0) {
+                            // Check if hospital meets any of the selected metric criteria
+                            metricMatch = metricFilters.some(metric => {
+                                // For demo purposes, we'll assume hospitals with scores above 70 meet the criteria
+                                const metricValue = hospital[metric.id.replace('f', '')];
+                                return metricValue !== undefined && metricValue > 70;
+                            });
+                        }
+                        
+                        return typeMatch && metricMatch;
+                    });
+
+                    displayHospitals(filteredHospitals);
+                    updateMapMarkers(filteredHospitals);
+                    
+                    // Hide loading indicator
+                    document.getElementById('resultsLoading').style.display = 'none';
+                    
+                    showToast(`Applied filters to ${filteredHospitals.length} hospitals`);
+                }, 500);
+            }
+
+            function getSelectedMetrics() {
+                const selectedMetrics = [];
+                
+                // Get all checked metric checkboxes
+                const checkedBoxes = document.querySelectorAll('.dropdown-content input[type="checkbox"]:checked');
+                
+                checkedBoxes.forEach(checkbox => {
+                    selectedMetrics.push({
+                        category: checkbox.getAttribute('data-category'),
+                        id: checkbox.id
+                    });
+                });
+                
+                return selectedMetrics;
+            }
+
+            function resetAllFilters() {
+                // Reset hospital type checkboxes
+                document.querySelectorAll('input[name="hospitalType"]').forEach(cb => {
+                    cb.checked = false;
+                });
+                document.querySelector('input[name="hospitalType"][value=""]').checked = true;
+                
+                // Reset location search
+                document.getElementById('zipCodeInput').value = '';
+                document.getElementById('radiusSelect').value = '';
+                
+                // Remove location circle from map
+                if (locationCircle) {
+                    mainMap.removeLayer(locationCircle);
+                    locationCircle = null;
+                }
+                
+                // Reset metric checkboxes
+                document.querySelectorAll('.dropdown-content input[type="checkbox"]').forEach(cb => {
+                    cb.checked = false;
+                });
+                
+                // Close all dropdowns
+                document.querySelectorAll('.dropdown-content').forEach(item => {
+                    item.classList.remove('show');
+                });
+                document.querySelectorAll('.dropdown-header').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Reset to show all hospitals
+                filteredHospitals = [...hospitalsData];
+                displayHospitals(filteredHospitals);
+                
+                // Update map with all hospitals
+                updateMapMarkers(filteredHospitals);
+                
+                // Reset map view
+                mainMap.setView([32.6782, -83.2226], 7);
+                
+                showToast("All filters have been reset");
+            }
+
+            function downloadResults() {
+                // Create CSV content
+                let csvContent = "Name,City,Type,Grade\n";
+                
+                filteredHospitals.forEach(hospital => {
+                    const type = hospital.TYPE_NonProfit ? "Nonprofit" : "For Profit";
+                    const location = hospital.TYPE_urban ? "Urban" : "Rural";
+                    csvContent += `"${hospital.Name}",${hospital.City},${type} (${location}),${hospital.TIER_1_GRADE_Lown_Composite}\n`;
+                });
+                
+                // Create download link
+                const encodedUri = encodeURI("data:text/csv;charset=utf-8," + csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "georgia_hospitals_filtered.csv");
+                document.body.appendChild(link);
+                
+                // Trigger download
+                link.click();
+                
+                // Clean up
+                document.body.removeChild(link);
+                
+                showToast("Download started");
+            }
+
+            function displayHospitals(hospitals) {
+                const resultsContainer = document.getElementById('hospitalResults');
+                const resultsCount = document.getElementById('resultsCount');
+                
+                resultsCount.textContent = `Viewing ${hospitals.length} results`;
+                
+                let html = '';
+                
+                if (hospitals.length === 0) {
+                    html = `<tr><td colspan="3" style="text-align: center; padding: 30px;">No hospitals match your search criteria</td></tr>`;
+                } else {
+                    hospitals.forEach((hospital) => {
+                        // Determine grade class for color coding
+                        const gradeClass = `grade-${hospital.TIER_1_GRADE_Lown_Composite}`;
+                        
+                        html += `
+                        <tr>
+                            <td><span class="grade-circle ${gradeClass}">${hospital.TIER_1_GRADE_Lown_Composite}</span></td>
+                            <td>
+                                <a href="?id=${hospital.RECORD_ID}" class="hospital-link">${hospital.Name}</a><br>
+                                ${hospital.Address}, ${hospital.City}, ${hospital.State} ${hospital.Zip}
+                            </td>
+                            <td><button class="details-button" data-id="${hospital.RECORD_ID}">View Details</button></td>
+                        </tr>
+                        `;
+                    });
+                }
+                
+                resultsContainer.innerHTML = html;
+                
+                // Clear any active dropdown when results change
+                if (activeDropdown) {
+                    activeDropdown.style.display = 'none';
+                    activeDropdown = null;
+                }
+            }
+
+            function showHospitalDetails(hospital, container) {
+                // Determine grade class for color coding
+                const gradeClass = `grade-${hospital.TIER_1_GRADE_Lown_Composite}`;
+                
+                // Set hospital details
+                container.innerHTML = `
+                <div class="details-grid">
+                    <div class="details-section">
+                        <h4>Hospital Information</h4>
+                        <p><strong>Grade:</strong> <span class="grade-circle ${gradeClass}">${hospital.TIER_1_GRADE_Lown_Composite}</span></p>
+                        <p><strong>Type:</strong> ${hospital.TYPE_NonProfit ? 'Nonprofit' : 'For Profit'}</p>
+                        <p><strong>Location:</strong> ${hospital.TYPE_urban ? 'Urban' : 'Rural'}</p>
+                    </div>
+                    <div class="details-section">
+                        <h4>Location Details</h4>
+                        <p><strong>Address:</strong> ${hospital.Address}</p>
+                        <p><strong>City:</strong> ${hospital.City}</p>
+                        <p><strong>State:</strong> ${hospital.State}</p>
+                        <p><strong>ZIP:</strong> ${hospital.Zip}</p>
+                    </div>
+                </div>
+                <div class="metric-bars">
+                    <h4>Performance Metrics</h4>
+                    <div class="metric-bar">
+                        <div class="metric-name">
+                            <span>Balance Growth</span>
+                            <span class="metric-value">${hospital.BalanceGrowth}%</span>
+                        </div>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: ${hospital.BalanceGrowth}%"></div>
+                        </div>
+                    </div>
+                    <div class="metric-bar">
+                        <div class="metric-name">
+                            <span>Transparency</span>
+                            <span class="metric-value">${hospital.Transparency}%</span>
+                        </div>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: ${hospital.Transparency}%"></div>
+                        </div>
+                    </div>
+                    <div class="metric-bar">
+                        <div class="metric-name">
+                            <span>Charity Care</span>
+                            <span class="metric-value">${hospital.CharityCare}%</span>
+                        </div>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: ${hospital.CharityCare}%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <a href="?id=${hospital.RECORD_ID}" class="details-button">View Full Details Page</a>
+                </div>
+                `;
+            }
+
+            function initMainMap() {
+                // Create a map centered on Georgia
+                mainMap = L.map('mainMap').setView([32.6782, -83.2226], 7);
+                
+                // Add OpenStreetMap tiles
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(mainMap);
+                
+                // Add marker layer group to map
+                markerLayerGroup.addTo(mainMap);
+                
+                // Add markers for all hospitals
+                updateMapMarkers(filteredHospitals);
+            }
+
+            function updateMapMarkers(hospitals) {
+                // Clear existing markers
+                markerLayerGroup.clearLayers();
+                markers = [];
+                
+                // Add new markers for each hospital
+                hospitals.forEach(hospital => {
+                    // Determine marker color based on grade
+                    let markerColor;
+                    switch(hospital.TIER_1_GRADE_Lown_Composite) {
+                        case 'A': markerColor = '#2ecc71'; break;
+                        case 'B': markerColor = '#57d68d'; break;
+                        case 'C': markerColor = '#ffe135'; break;
+                        case 'D': markerColor = '#ffd700'; break;
+                        case 'F': markerColor = '#e74c3c'; break;
+                        default: markerColor = '#0078c8';
+                    }
+                    
+                    // Create a custom icon
+                    const hospitalIcon = L.divIcon({
+                        className: 'custom-marker',
+                        html: `<div style="background-color: ${markerColor}; width: 24px; height: 24px; border-radius: 50%; border: 3px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">${hospital.TIER_1_GRADE_Lown_Composite}</div>`,
+                        iconSize: [24, 24],
+                        iconAnchor: [12, 12]
+                    });
+                    
+                    // Add marker to map
+                    const marker = L.marker([hospital.Lat, hospital.Lng], {icon: hospitalIcon})
+                        .addTo(markerLayerGroup)
+                        .bindPopup(`
+                            <b>${hospital.Name}</b><br>
+                            ${hospital.Address}, ${hospital.City}<br>
+                            Grade: ${hospital.TIER_1_GRADE_Lown_Composite}
+                        `);
+                    
+                    markers.push(marker);
+                });
+                
+                // Adjust map view to show all markers if there are any
+                if (hospitals.length > 0) {
+                    const group = new L.featureGroup(markers);
+                    mainMap.fitBounds(group.getBounds().pad(0.1));
+                }
+            }
+        });
+    </script>
 </body>
 </html>
