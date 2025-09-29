@@ -95,15 +95,14 @@
         }
 
         .logo-container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px 15px;
-            border-radius: 8px;
-            backdrop-filter: blur(5px);
-            display: inline-block;
-            margin: 0 auto;
-        }
+          background-image: url('hospital-scorecard/GWLogo.png');
+              background-repeat: no-repeat;
+              background-size: contain;
+              width: 200px;
+              height: 60px;
+            }
 
+        
         .logo-img {
             font-weight: 700;
             font-size: 24px;
@@ -678,118 +677,6 @@
             transform: translateY(0);
         }
 
-        /* Details Page Styles */
-        .details-page {
-            display: none;
-        }
-
-        .hospital-card {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 25px;
-            margin-bottom: 25px;
-        }
-
-        .hospital-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #eee;
-        }
-
-        .hospital-name {
-            font-size: 28px;
-            color: #0053a1;
-            font-weight: 700;
-        }
-
-        .hospital-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .info-item {
-            padding: 10px 0;
-        }
-
-        .info-label {
-            font-weight: 600;
-            color: #666;
-            margin-bottom: 5px;
-        }
-
-        .info-value {
-            font-size: 16px;
-        }
-
-        .metrics-sidebar {
-            width: 350px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 25px;
-            height: fit-content;
-            position: sticky;
-            top: 20px;
-        }
-
-        .metrics-sidebar h2 {
-            color: #0053a1;
-            margin-bottom: 20px;
-            font-size: 22px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #eee;
-        }
-
-        .metric-item {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 6px;
-            border-left: 4px solid #6fb353;
-        }
-
-        .metric-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #333;
-            font-size: 16px;
-        }
-
-        .metric-description {
-            font-size: 14px;
-            color: #666;
-            margin-top: 8px;
-            line-height: 1.4;
-        }
-
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            background-color: #6c757d;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 500;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .back-button:hover {
-            background-color: #5a6268;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
         /* Mobile responsiveness */
         @media (max-width: 768px) {
             .top-nav {
@@ -843,16 +730,12 @@
                 grid-template-columns: 1fr;
             }
 
-            .metrics-sidebar {
-                width: 100%;
+            /* Logo responsive adjustments */
+            .logo-container {
                 position: relative;
                 top: 0;
-            }
-            
-            .hospital-header {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
+                right: 0;
+                margin: 15px 0;
             }
             
             .header-content h1 {
@@ -866,497 +749,255 @@
     </style>
 </head>
 <body>
-    <!-- Main Page -->
-    <div id="main-page">
-        <header>
-            <div class="container">
-                <div class="top-nav">
-                    <div class="logo">
-                    </div>
-                    <div class="nav-links">
-                        <a href="#">Rankings</a>
-                        <a href="#">Methodology</a>
-                        <a href="#">About Us</a>
-                    </div>
+    <header>
+        <div class="container">
+            <div class="top-nav">
+                <div class="logo">
                 </div>
-                
-                <div class="logo-container">
-                    <div class="logo-img">
-                        <span>GEORGIA WATCH</span>
-                        <span>Advocating for patients and protecting consumers</span>
-                    </div>
-                </div>
-                
-                <div class="header-content">
-                    <h1>GEORGIA HOSPITAL SYSTEM SCORECARD</h1>
-                    <p>Find and compare hospital performance in Georgia</p>
+                <div class="nav-links">
+                    <a href="#">Rankings</a>
+                    <a href="#">Methodology</a>
+                    <a href="#">About Us</a>
                 </div>
             </div>
-        </header>
-
-        <div class="container main-content">
-            <!-- Sidebar -->
-            <aside class="sidebar">
-                <h2>Filter Hospitals</h2>
-                
-                <!-- Location Search Section -->
-                <div class="location-search">
-                    <h3>Search by Location</h3>
-                    <input type="text" class="search-input" id="zipCodeInput" placeholder="Enter ZIP code">
-                    <select class="radius-select" id="radiusSelect">
-                        <option value="">Select radius</option>
-                        <option value="5">5 miles</option>
-                        <option value="10">10 miles</option>
-                        <option value="25">25 miles</option>
-                        <option value="50">50 miles</option>
-                        <option value="100">100 miles</option>
-                    </select>
-                    <button class="sidebar-button" id="locationSearchBtn">Search Location</button>
+            
+            <div class="logo-container">
+                <div class="logo-img">
+                    <img src="hospital-scorecard/GWLogo.png" alt="GEORGIA WATCH" class="logo-png">
                 </div>
+            </div>
+            
+            <div class="header-content">
                 
-                <!-- Hospital Type Dropdown -->
+                <h1>GEORGIA WATCH</h1>
+                <p>Advocating for patients and protecting consumers since 2002</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container main-content">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Filter Hospitals</h2>
+            
+            <!-- Location Search Section -->
+            <div class="location-search">
+                <h3>Search by Location</h3>
+                <input type="text" class="search-input" id="zipCodeInput" placeholder="Enter ZIP code">
+                <select class="radius-select" id="radiusSelect">
+                    <option value="">Select radius</option>
+                    <option value="5">5 miles</option>
+                    <option value="10">10 miles</option>
+                    <option value="25">25 miles</option>
+                    <option value="50">50 miles</option>
+                    <option value="100">100 miles</option>
+                </select>
+                <button class="sidebar-button" id="locationSearchBtn">Search Location</button>
+            </div>
+            
+            <!-- Hospital Type Dropdown -->
+            <div class="metric-dropdown">
+                <div class="dropdown-header" data-metric="hospitalType">
+                    <span>Filter by Hospital Type</span>
+                    <span class="dropdown-arrow">▼</span>
+                </div>
+                <div class="dropdown-content">
+                    <div class="checkbox-group">
+                        <label class="check">
+                            <input type="checkbox" name="hospitalType" value="" checked>
+                            <span>All Hospital Types</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" name="hospitalType" value="rural">
+                            <span>Rural</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" name="hospitalType" value="urban">
+                            <span>Urban</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" name="hospitalType" value="nonprofit">
+                            <span>Nonprofit</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" name="hospitalType" value="forprofit">
+                            <span>For Profit</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <!-- Metrics section in sidebar -->
+            <div class="metrics-section">
+                <h3>CHOOSE A METRIC:</h3>
+                
+                <!-- Financial Transparency Dropdown -->
                 <div class="metric-dropdown">
-                    <div class="dropdown-header" data-metric="hospitalType">
-                        <span>Filter by Hospital Type</span>
+                    <div class="dropdown-header" data-metric="financialTransparency">
+                        <span>Financial transparency and community benefit spending</span>
                         <span class="dropdown-arrow">▼</span>
                     </div>
                     <div class="dropdown-content">
-                        <div class="checkbox-group">
-                            <label class="check">
-                                <input type="checkbox" name="hospitalType" value="" checked>
-                                <span>All Hospital Types</span>
-                            </label>
-                            <label class="check">
-                                <input type="checkbox" name="hospitalType" value="rural">
-                                <span>Rural</span>
-                            </label>
-                            <label class="check">
-                                <input type="checkbox" name="hospitalType" value="urban">
-                                <span>Urban</span>
-                            </label>
-                            <label class="check">
-                                <input type="checkbox" name="hospitalType" value="nonprofit">
-                                <span>Nonprofit</span>
-                            </label>
-                            <label class="check">
-                                <input type="checkbox" name="hospitalType" value="forprofit">
-                                <span>For Profit</span>
-                            </label>
-                        </div>
+                        <label class="check">
+                            <input type="checkbox" id="fBalanceGrowth" data-category="financialTransparency">
+                            <span>Balance Growth</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fTransparency" data-category="financialTransparency">
+                            <span>Transparency</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fFiscalHealth" data-category="financialTransparency">
+                            <span>Fiscal health</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fStaffing" data-category="financialTransparency">
+                            <span>Staffing</span>
+                        </label>
                     </div>
                 </div>
 
-                <!-- Metrics section in sidebar -->
-                <div class="metrics-section">
-                    <h3>CHOOSE A METRIC:</h3>
+                <!-- Community Benefit Spending Dropdown -->
+                <div class="metric-dropdown">
+                    <div class="dropdown-header" data-metric="communityBenefit">
+                        <span>Community Benefit Spending</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </div>
+                    <div class="dropdown-content">
+                        <label class="check">
+                            <input type="checkbox" id="fTaxBenefit" data-category="communityBenefit">
+                            <span>Tax Benefit</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fQualityOfCBS" data-category="communityBenefit">
+                            <span>Quality of CBS</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fStrategicUse" data-category="communityBenefit">
+                            <span>Strategic Use</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Healthcare Affordability Dropdown -->
+                <div class="metric-dropdown">
+                    <div class="dropdown-header" data-metric="healthcareAffordability">
+                        <span>Healthcare Affordability and billing</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </div>
+                    <div class="dropdown-content">
+                        <label class="check">
+                            <input type="checkbox" id="fFinancialBurden" data-category="healthcareAffordability">
+                            <span>Financial Burden</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fCharityCare" data-category="healthcareAffordability">
+                            <span>Charity Care</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fMedicalDebt" data-category="healthcareAffordability">
+                            <span>Medical Debt</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Healthcare Access Dropdown -->
+                <div class="metric-dropdown">
+                    <div class="dropdown-header" data-metric="accessAndResponsibility">
+                        <span>Healthcare Access and Social Responsibility</span>
+                        <span class="dropdown-arrow">▼</span>
+                    </div>
+                    <div class="dropdown-content">
+                        <label class="check">
+                            <input type="checkbox" id="fRangeOfServices" data-category="accessAndResponsibility">
+                            <span>Range of Services</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fDemographicAlignment" data-category="accessAndResponsibility">
+                            <span>Demographic Alignment</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fWorkforceTraining" data-category="accessAndResponsibility">
+                            <span>Workforce Training</span>
+                        </label>
+                        <label class="check">
+                            <input type="checkbox" id="fPayEquityRatio" data-category="accessAndResponsibility">
+                            <span>Pay Equity Ratio</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="sidebar-button" id="sidebarSearchBtn">Apply Filters</button>
+            <button class="sidebar-button" id="sidebarResetBtn" style="background-color: #6c757d;">Reset Filters</button>
+            <button class="sidebar-button" id="downloadBtn" style="background-color: #6c757d;">Download Results</button>
+        </aside>
+
+        <!-- Main content area and map side by side -->
+        <div class="content-wrapper">
+            <!-- Main content area -->
+            <main class="content-area">
+                <section class="search-section">
+                    <div class="results-header">
+                        <div>
+                            <span id="resultsCount">Viewing 0 results</span>
+                        </div>
+                        <div class="loading" id="resultsLoading">
+                            <div class="loading-spinner"></div>
+                            <p>Loading results...</p>
+                        </div>
+                    </div>
                     
-                    <!-- Financial Transparency Dropdown -->
-                    <div class="metric-dropdown">
-                        <div class="dropdown-header" data-metric="financialTransparency">
-                            <span>Financial transparency and community benefit spending</span>
-                            <span class="dropdown-arrow">▼</span>
-                        </div>
-                        <div class="dropdown-content">
-                            <label class="check">
-                                <input type="checkbox" id="fBalanceGrowth" data-category="financialTransparency">
-                                <span>Balance Growth</span>
-                            </label>
-                            <label class="check">
-                                <input type="checkbox" id="fTransparency" data-category="financialTransparency">
-                                <span>Transparency</span>
-                            </label>
-                            <label class="check">
-                                <input type="checkbox" id="fFiscalHealth" data-category="financialTransparency">
-                                <span>Fiscal health</span>
-                            </label>
-                            <label class="check">
-                                <input type="checkbox" id="fStaffing" data-category="financialTransparency">
-                                <span>Staffing</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Community Benefit Spending Dropdown -->
-                    <div class="metric-dropdown">
-                        <div class="dropdown-header" data-metric="communityBenefit">
-                            <span>Community Benefit Spending</span>
-                            <span class="dropdown-arrow">▼</span>
-                        </div>
-                        <div class="dropdown-content">
-                            <label class="check">
-                                <input type="checkbox" id="fTaxBenefit" data-category="communityBenefit">
-                                <span>Tax Benefit</span>
-                            </label>
-                            <label class="check">
-                                <input type="checkbox" id="fQualityOfCBS" data-category="communityBenefit">
-                                <span>Quality of CBS</span>
-                            </label>
-                            <label class="check">
-                                <input type="checkbox" id="fStrategicUse" data-category="communityBenefit">
-                                <span>Strategic Use</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Healthcare Affordability Dropdown -->
-                    <div class="metric-dropdown">
-                        <div class="dropdown-header" data-metric="healthcareAffordability">
-                            <span>Healthcare Affordability and billing</span>
-                            <span class="dropdown-arrow">▼</span>
-                        </div>
-                        <div class="dropdown-content">
-                            <label class="check">
-                                <input type="checkbox" id="fFinancialBurden" data-category="healthcareAffordability">
-                                <span>Financial Burden</span>
-                            </label>
-                            <label class="check">
-                                <input type="checkbox" id="fCharityCare" data-category="healthcareAffordability">
-                                <span>Charity Care</span>
-                            </label>
-                            <label class="check">
-                                <input type="checkbox" id="fMedicalDebt" data-category="healthcareAffordability">
-                                <span>Medical Debt</span>
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Healthcare Access Dropdown -->
-                    <div class="metric-dropdown">
-                        <div class="dropdown-header" data-metric="accessAndResponsibility">
-                            <span>Healthcare Access and Social Responsibility</span>
-                            <span class="dropdown-arrow">▼</span>
-                        </div>
-                        <div class="dropdown-content">
-                            <label class="check">
-                                <input type="checkbox" id="fRangeOfServices" data-category="accessAndResponsibility">
-                                <span>Range of Services</span>
-                            </label>
-                            <label class="check">
-                                <input type="checkbox" id="fDemographicAlignment" data-category="accessAndResponsibility">
-                                <span>Demographic Alignment</span>
-                            </label>
-                            <label class="check">
-                                <input type="checkbox" id="fWorkforceTraining" data-category="accessAndResponsibility">
-                                <span>Workforce Training</span>
-                            </label>
-                            <label class="check">
-                                <input type="checkbox" id="fPayEquityRatio" data-category="accessAndResponsibility">
-                                <span>Pay Equity Ratio</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="sidebar-button" id="sidebarSearchBtn">Apply Filters</button>
-                <button class="sidebar-button" id="sidebarResetBtn" style="background-color: #6c757d;">Reset Filters</button>
-                <button class="sidebar-button" id="downloadBtn" style="background-color: #6c757d;">Download Results</button>
-            </aside>
-
-            <!-- Main content area and map side by side -->
-            <div class="content-wrapper">
-                <!-- Main content area -->
-                <main class="content-area">
-                    <section class="search-section">
-                        <div class="results-header">
-                            <div>
-                                <span id="resultsCount">Viewing 0 results</span>
-                            </div>
-                            <div class="loading" id="resultsLoading">
-                                <div class="loading-spinner"></div>
-                                <p>Loading results...</p>
-                            </div>
-                        </div>
-                        
-                        <table class="results-table">
-                            <thead>
-                                <tr>
-                                    <th width="10%">Grade</th>
-                                    <th width="70%">Hospital Name & Location</th>
-                                    <th width="20%">Details</th>
-                                </tr>
-                            </thead>
-                            <tbody id="hospitalResults">
-                                <!-- Results will be populated by JavaScript -->
-                            </tbody>
-                        </table>
-                    </section>
-                </main>
-
-                <!-- Map section - now positioned next to main content -->
-                <section class="map-section">
-                    <h2>HOSPITAL LOCATIONS</h2>
-                    <div id="mainMap"></div>
+                    <table class="results-table">
+                        <thead>
+                            <tr>
+                                <th width="10%">Grade</th>
+                                <th width="70%">Hospital Name & Location</th>
+                                <th width="20%">Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="hospitalResults">
+                            <!-- Results will be populated by JavaScript -->
+                        </tbody>
+                    </table>
                 </section>
-            </div>
-        </div>
+            </main>
 
-        <footer>
-            <div class="container">
-                <div class="footer-content">
-                    <ul class="footer-links">
-                        <li><a href="#">Georgia Watch</a></li>
-                        <li><a href="#">Rankings</a></li>
-                        <li><a href="#">Methodology</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Donate</a></li>
-                        <li><a href="#">Legal/Privacy</a></li>
-                        <li><a href="#">Site Map</a></li>
-                    </ul>
-                    <div class="copyright">
-                        <p>Georgia Watch is a non-profit, nonpartisan 501(c)3 organization. © 2024 Georgia Watch. All Rights Reserved.</p>
-                    </div>
-                </div>
-            </div>
-        </footer>
+            <!-- Map section - now positioned next to main content -->
+            <section class="map-section">
+                <h2>HOSPITAL LOCATIONS</h2>
+                <div id="mainMap"></div>
+            </section>
+        </div>
     </div>
 
-    <!-- Details Page -->
-    <div id="details-page" class="details-page">
-        <header>
-            <div class="container">
-                <div class="top-nav">
-                    <div class="nav-links">
-                        <a href="#" id="back-to-main">Home</a>
-                        <a href="#">Rankings</a>
-                        <a href="#">Methodology</a>
-                        <a href="#">About Us</a>
-                    </div>
-                </div>
-                
-                <div class="logo-container">
-                    <div class="logo-img">
-                        <span>GEORGIA WATCH</span>
-                        <span>Hospital Performance Scorecard</span>
-                    </div>
-                </div>
-                
-                <div class="header-content">
-                    <h1>HOSPITAL PERFORMANCE DETAILS</h1>
-                    <p>Comprehensive metrics and ratings</p>
-                </div>
-            </div>
-        </header>
-
+    <footer>
         <div class="container">
-            <div class="main-content">
-                <!-- Hospital Information -->
-                <div class="content-area" style="flex: 1;">
-                    <div class="hospital-card">
-                        <div class="hospital-header">
-                            <h1 class="hospital-name" id="hospitalName">Loading Hospital Information...</h1>
-                            <div class="grade-circle" id="hospitalGrade">-</div>
-                        </div>
-                        
-                        <div class="hospital-info" id="hospitalInfo">
-                            <!-- Hospital information will be populated by JavaScript -->
-                        </div>
-                        
-                        <div class="hospital-description">
-                            <h3>About This Hospital</h3>
-                            <p id="hospitalDescription">Detailed performance metrics and ratings for this hospital are displayed in the sidebar. Each metric is rated on a 5-star scale based on the hospital's performance data.</p>
-                        </div>
-                    </div>
+            <div class="footer-content">
+                <ul class="footer-links">
+                    <li><a href="#">Georgia Watch</a></li>
+                    <li><a href="#">Rankings</a></li>
+                    <li><a href="#">Methodology</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Donate</a></li>
+                    <li><a href="#">Legal/Privacy</a></li>
+                    <li><a href="#">Site Map</a></li>
+                </ul>
+                 <p>Georgia Watch is a non-profit, nonpartisan 501(c)3 organization. © 2024 Georgia Watch. All Rights Reserved.</p>
+                <div class="copyright">
+                   
                 </div>
-                
-                <!-- Metrics Sidebar -->
-                <aside class="metrics-sidebar">
-                    <h2>Performance Metrics</h2>
-                    
-                    <!-- Financial Transparency Metrics -->
-                    <div class="metric-dropdown">
-                        <div class="dropdown-header active" data-metric="financialTransparency">
-                            <span>Financial Transparency & Community Benefit</span>
-                            <span class="dropdown-arrow">▼</span>
-                        </div>
-                        <div class="dropdown-content show">
-                            <div class="metric-item" id="metricBalanceGrowth">
-                                <div class="metric-title">Balance Growth</div>
-                                <div class="star-rating">
-                                    <div class="stars" id="starsBalanceGrowth">-</div>
-                                    <div class="metric-value" id="valueBalanceGrowth">-</div>
-                                </div>
-                                <div class="metric-description">Measures the hospital's financial growth and stability over time</div>
-                            </div>
-                            
-                            <div class="metric-item" id="metricTransparency">
-                                <div class="metric-title">Transparency</div>
-                                <div class="star-rating">
-                                    <div class="stars" id="starsTransparency">-</div>
-                                    <div class="metric-value" id="valueTransparency">-</div>
-                                </div>
-                                <div class="metric-description">Assessment of financial disclosure and reporting practices</div>
-                            </div>
-                            
-                            <div class="metric-item" id="metricFiscalHealth">
-                                <div class="metric-title">Fiscal Health</div>
-                                <div class="star-rating">
-                                    <div class="stars" id="starsFiscalHealth">-</div>
-                                    <div class="metric-value" id="valueFiscalHealth">-</div>
-                                </div>
-                                <div class="metric-description">Overall financial stability and resource management</div>
-                            </div>
-                            
-                            <div class="metric-item" id="metricStaffing">
-                                <div class="metric-title">Staffing</div>
-                                <div class="star-rating">
-                                    <div class="stars" id="starsStaffing">-</div>
-                                    <div class="metric-value" id="valueStaffing">-</div>
-                                </div>
-                                <div class="metric-description">Adequacy and quality of healthcare staffing</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Community Benefit Spending Metrics -->
-                    <div class="metric-dropdown">
-                        <div class="dropdown-header" data-metric="communityBenefit">
-                            <span>Community Benefit Spending</span>
-                            <span class="dropdown-arrow">▼</span>
-                        </div>
-                        <div class="dropdown-content">
-                            <div class="metric-item" id="metricTaxBenefit">
-                                <div class="metric-title">Tax Benefit Utilization</div>
-                                <div class="star-rating">
-                                    <div class="stars" id="starsTaxBenefit">-</div>
-                                    <div class="metric-value" id="valueTaxBenefit">-</div>
-                                </div>
-                                <div class="metric-description">Effective use of tax benefits for community programs</div>
-                            </div>
-                            
-                            <div class="metric-item" id="metricQualityOfCBS">
-                                <div class="metric-title">Quality of Community Benefit Spending</div>
-                                <div class="star-rating">
-                                    <div class="stars" id="starsQualityOfCBS">-</div>
-                                    <div class="metric-value" id="valueQualityOfCBS">-</div>
-                                </div>
-                                <div class="metric-description">Effectiveness and impact of community benefit programs</div>
-                            </div>
-                            
-                            <div class="metric-item" id="metricStrategicUse">
-                                <div class="metric-title">Strategic Use of Resources</div>
-                                <div class="star-rating">
-                                    <div class="stars" id="starsStrategicUse">-</div>
-                                    <div class="metric-value" id="valueStrategicUse">-</div>
-                                </div>
-                                <div class="metric-description">Strategic allocation of community benefit resources</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Healthcare Affordability Metrics -->
-                    <div class="metric-dropdown">
-                        <div class="dropdown-header" data-metric="healthcareAffordability">
-                            <span>Healthcare Affordability & Billing</span>
-                            <span class="dropdown-arrow">▼</span>
-                        </div>
-                        <div class="dropdown-content">
-                            <div class="metric-item" id="metricFinancialBurden">
-                                <div class="metric-title">Financial Burden on Patients</div>
-                                <div class="star-rating">
-                                    <div class="stars" id="starsFinancialBurden">-</div>
-                                    <div class="metric-value" id="valueFinancialBurden">-</div>
-                                </div>
-                                <div class="metric-description">Impact of healthcare costs on patients' financial wellbeing</div>
-                            </div>
-                            
-                            <div class="metric-item" id="metricCharityCare">
-                                <div class="metric-title">Charity Care Provision</div>
-                                <div class="star-rating">
-                                    <div class="stars" id="starsCharityCare">-</div>
-                                    <div class="metric-value" id="valueCharityCare">-</div>
-                                </div>
-                                <div class="metric-description">Extent and quality of charity care services provided</div>
-                            </div>
-                            
-                            <div class="metric-item" id="metricMedicalDebt">
-                                <div class="metric-title">Medical Debt Management</div>
-                                <div class="star-rating">
-                                    <div class="stars" id="starsMedicalDebt">-</div>
-                                    <div class="metric-value" id="valueMedicalDebt">-</div>
-                                </div>
-                                <div class="metric-description">Approaches to managing and preventing patient medical debt</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Healthcare Access Metrics -->
-                    <div class="metric-dropdown">
-                        <div class="dropdown-header" data-metric="accessAndResponsibility">
-                            <span>Healthcare Access & Social Responsibility</span>
-                            <span class="dropdown-arrow">▼</span>
-                        </div>
-                        <div class="dropdown-content">
-                            <div class="metric-item" id="metricRangeOfServices">
-                                <div class="metric-title">Range of Services</div>
-                                <div class="star-rating">
-                                    <div class="stars" id="starsRangeOfServices">-</div>
-                                    <div class="metric-value" id="valueRangeOfServices">-</div>
-                                </div>
-                                <div class="metric-description">Diversity and comprehensiveness of healthcare services offered</div>
-                            </div>
-                            
-                            <div class="metric-item" id="metricDemographicAlignment">
-                                <div class="metric-title">Demographic Alignment</div>
-                                <div class="star-rating">
-                                    <div class="stars" id="starsDemographicAlignment">-</div>
-                                    <div class="metric-value" id="valueDemographicAlignment">-</div>
-                                </div>
-                                <div class="metric-description">Alignment with community demographic needs</div>
-                            </div>
-                            
-                            <div class="metric-item" id="metricWorkforceTraining">
-                                <div class="metric-title">Workforce Training</div>
-                                <div class="star-rating">
-                                    <div class="stars" id="starsWorkforceTraining">-</div>
-                                    <div class="metric-value" id="valueWorkforceTraining">-</div>
-                                </div>
-                                <div class="metric-description">Investment in staff training and development</div>
-                            </div>
-                            
-                            <div class="metric-item" id="metricPayEquityRatio">
-                                <div class="metric-title">Pay Equity Ratio</div>
-                                <div class="star-rating">
-                                    <div class="stars" id="starsPayEquityRatio">-</div>
-                                    <div class="metric-value" id="valuePayEquityRatio">-</div>
-                                </div>
-                                <div class="metric-description">Fairness in compensation across the organization</div>
-                            </div>
-                        </div>
-                    </div>
-                </aside>
             </div>
         </div>
-
-        <footer>
-            <div class="container">
-                <div class="footer-content">
-                    <ul class="footer-links">
-                        <li><a href="#" id="back-to-main-footer">Home</a></li>
-                        <li><a href="#">Rankings</a></li>
-                        <li><a href="#">Methodology</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Donate</a></li>
-                        <li><a href="#">Legal/Privacy</a></li>
-                    </ul>
-                    <div class="copyright">
-                        <p>Georgia Watch is a non-profit, nonpartisan 501(c)3 organization. © 2024 Georgia Watch. All Rights Reserved.</p>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
+    </footer>
 
     <div class="toast" id="toast"></div>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Page elements
-            const mainPage = document.getElementById('main-page');
-            const detailsPage = document.getElementById('details-page');
-            const backToMainLinks = document.querySelectorAll('#back-to-main, #back-to-main-footer');
-            
-            // Hospital data
             let hospitalsData = [];
             let filteredHospitals = [];
             let currentMetric = '';
@@ -1366,7 +1007,7 @@
             let locationCircle = null;
             let markerLayerGroup = L.layerGroup();
 
-            // Sample hospital data with coordinates
+            // Sample hospital data with coordinates (in a real app, this would come from a JSON file)
             hospitalsData = [
                 {
                     "RECORD_ID": 110001,
@@ -1517,36 +1158,16 @@
 
             filteredHospitals = [...hospitalsData];
             
-            // Initialize the application
-            initApplication();
-
-            function initApplication() {
-                // Display hospitals on main page
-                displayHospitals(filteredHospitals);
-                
-                // Initialize the map
-                initMainMap();
-                
-                // Add event listeners
-                setupEventListeners();
-                
-                // Check if we should show details page
-                const urlParams = new URLSearchParams(window.location.search);
-                const hospitalId = urlParams.get('id');
-                if (hospitalId) {
-                    showDetailsPage(hospitalId);
-                }
-            }
+            // Display hospitals
+            displayHospitals(filteredHospitals);
+            
+            // Initialize the map
+            initMainMap();
+            
+            // Add event listeners
+            setupEventListeners();
 
             function setupEventListeners() {
-                // Back to main page links
-                backToMainLinks.forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        showMainPage();
-                    });
-                });
-
                 // Add toggle functionality to all dropdowns (including hospital type)
                 const dropdownHeaders = document.querySelectorAll('.dropdown-header');
                 dropdownHeaders.forEach(header => {
@@ -1617,72 +1238,40 @@
                 document.getElementById('hospitalResults').addEventListener('click', function(e) {
                     if (e.target.classList.contains('details-button')) {
                         const hospitalId = e.target.getAttribute('data-id');
+                        const hospital = hospitalsData.find(h => h.RECORD_ID == hospitalId);
+                        const row = e.target.closest('tr');
+                        const detailsRow = row.nextElementSibling;
                         
-                        if (e.target.textContent === 'View Full Details') {
-                            // Navigate to details page
-                            showDetailsPage(hospitalId);
-                        } else {
-                            // Toggle inline details
-                            const hospital = hospitalsData.find(h => h.RECORD_ID == hospitalId);
-                            const row = e.target.closest('tr');
-                            const detailsRow = row.nextElementSibling;
-                            
-                            // If this dropdown is already open, close it
-                            if (activeDropdown === detailsRow) {
-                                detailsRow.style.display = 'none';
-                                activeDropdown = null;
-                                e.target.textContent = 'View Details';
-                                return;
-                            }
-                            
-                            // Close any open dropdown
-                            if (activeDropdown) {
-                                activeDropdown.style.display = 'none';
-                                activeDropdown.previousElementSibling.querySelector('.details-button').textContent = 'View Details';
-                            }
-                            
-                            // If this row doesn't have a details row, create one
-                            if (!detailsRow || !detailsRow.classList.contains('hospital-details-dropdown')) {
-                                const newRow = document.createElement('tr');
-                                newRow.classList.add('hospital-details-dropdown');
-                                newRow.innerHTML = `<td colspan="3"><div class="details-content"></div></td>`;
-                                row.parentNode.insertBefore(newRow, row.nextSibling);
-                                showHospitalDetailsInline(hospital, newRow.querySelector('.details-content'));
-                                activeDropdown = newRow;
-                            } else {
-                                detailsRow.style.display = 'table-row';
-                                activeDropdown = detailsRow;
-                            }
-                            
-                            e.target.textContent = 'Hide Details';
+                        // If this dropdown is already open, close it
+                        if (activeDropdown === detailsRow) {
+                            detailsRow.style.display = 'none';
+                            activeDropdown = null;
+                            e.target.textContent = 'View Details';
+                            return;
                         }
+                        
+                        // Close any open dropdown
+                        if (activeDropdown) {
+                            activeDropdown.style.display = 'none';
+                            activeDropdown.previousElementSibling.querySelector('.details-button').textContent = 'View Details';
+                        }
+                        
+                        // If this row doesn't have a details row, create one
+                        if (!detailsRow || !detailsRow.classList.contains('hospital-details-dropdown')) {
+                            const newRow = document.createElement('tr');
+                            newRow.classList.add('hospital-details-dropdown');
+                            newRow.innerHTML = `<td colspan="3"><div class="details-content"></div></td>`;
+                            row.parentNode.insertBefore(newRow, row.nextSibling);
+                            showHospitalDetails(hospital, newRow.querySelector('.details-content'));
+                            activeDropdown = newRow;
+                        } else {
+                            detailsRow.style.display = 'table-row';
+                            activeDropdown = detailsRow;
+                        }
+                        
+                        e.target.textContent = 'Hide Details';
                     }
                 });
-            }
-
-            function showMainPage() {
-                mainPage.style.display = 'block';
-                detailsPage.style.display = 'none';
-                // Update URL without page reload
-                window.history.pushState({}, '', window.location.pathname);
-            }
-
-            function showDetailsPage(hospitalId) {
-                mainPage.style.display = 'none';
-                detailsPage.style.display = 'block';
-                
-                // Update URL without page reload
-                window.history.pushState({}, '', `?id=${hospitalId}`);
-                
-                // Load and display hospital details
-                const hospital = hospitalsData.find(h => h.RECORD_ID == hospitalId);
-                if (hospital) {
-                    displayHospitalDetails(hospital);
-                } else {
-                    document.getElementById('hospitalName').textContent = 'Hospital Not Found';
-                    document.getElementById('hospitalGrade').textContent = '?';
-                    document.getElementById('hospitalGrade').className = 'grade-circle';
-                }
             }
 
             function showToast(message, duration = 3000) {
@@ -1913,38 +1502,16 @@
                         <tr>
                             <td><span class="grade-circle ${gradeClass}">${hospital.TIER_1_GRADE_Lown_Composite}</span></td>
                             <td>
-                                <a href="#" class="hospital-link" data-id="${hospital.RECORD_ID}">${hospital.Name}</a><br>
+                                <a href="?id=${hospital.RECORD_ID}" class="hospital-link">${hospital.Name}</a><br>
                                 ${hospital.Address}, ${hospital.City}, ${hospital.State} ${hospital.Zip}
                             </td>
-                            <td>
-                                <button class="details-button" data-id="${hospital.RECORD_ID}">View Details</button>
-                                <button class="details-button" data-id="${hospital.RECORD_ID}" style="background-color: #0053a1; margin-left: 5px;">View Full Details</button>
-                            </td>
+                            <td><button class="details-button" data-id="${hospital.RECORD_ID}">View Details</button></td>
                         </tr>
                         `;
                     });
                 }
                 
                 resultsContainer.innerHTML = html;
-                
-                // Add event listeners to hospital links and full details buttons
-                document.querySelectorAll('.hospital-link').forEach(link => {
-                    link.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        const hospitalId = this.getAttribute('data-id');
-                        showDetailsPage(hospitalId);
-                    });
-                });
-                
-                document.querySelectorAll('.details-button').forEach(button => {
-                    if (button.textContent === 'View Full Details') {
-                        button.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            const hospitalId = this.getAttribute('data-id');
-                            showDetailsPage(hospitalId);
-                        });
-                    }
-                });
                 
                 // Clear any active dropdown when results change
                 if (activeDropdown) {
@@ -1953,7 +1520,10 @@
                 }
             }
 
-            function showHospitalDetailsInline(hospital, container) {
+            function showHospitalDetails(hospital, container) {
+                // Determine grade class for color coding
+                const gradeClass = `grade-${hospital.TIER_1_GRADE_Lown_Composite}`;
+                
                 // Function to convert percentage to star rating (1-5 stars)
                 function getStarRating(percentage) {
                     // Convert percentage to 1-5 star rating
@@ -1980,6 +1550,7 @@
                 <div class="details-grid">
                     <div class="details-section">
                         <h4>Hospital Information</h4>
+                        <p><strong>Grade:</strong> <span class="grade-circle ${gradeClass}">${hospital.TIER_1_GRADE_Lown_Composite}</span></p>
                         <p><strong>Type:</strong> ${hospital.TYPE_NonProfit ? 'Nonprofit' : 'For Profit'}</p>
                         <p><strong>Location:</strong> ${hospital.TYPE_urban ? 'Urban' : 'Rural'}</p>
                     </div>
@@ -2004,100 +1575,25 @@
                         <div class="metric-value">${hospital.Transparency}%</div>
                     </div>
                     <div class="star-rating">
+                        <div class="metric-name">Fiscal Health</div>
+                        <div class="stars">${generateStars(getStarRating(hospital.FiscalHealth))}</div>
+                        <div class="metric-value">${hospital.FiscalHealth}%</div>
+                    </div>
+                    <div class="star-rating">
+                        <div class="metric-name">Staffing</div>
+                        <div class="stars">${generateStars(getStarRating(hospital.Staffing))}</div>
+                        <div class="metric-value">${hospital.Staffing}%</div>
+                    </div>
+                    <div class="star-rating">
                         <div class="metric-name">Charity Care</div>
                         <div class="stars">${generateStars(getStarRating(hospital.CharityCare))}</div>
                         <div class="metric-value">${hospital.CharityCare}%</div>
                     </div>
                 </div>
                 <div style="text-align: center; margin-top: 15px;">
-                    <button class="details-button" data-id="${hospital.RECORD_ID}" style="background-color: #0053a1;">View Full Details Page</button>
+                    <a href="?id=${hospital.RECORD_ID}" class="details-button">View Full Details Page</a>
                 </div>
                 `;
-                
-                // Add event listener to the full details button
-                container.querySelector('.details-button').addEventListener('click', function() {
-                    const hospitalId = this.getAttribute('data-id');
-                    showDetailsPage(hospitalId);
-                });
-            }
-
-            function displayHospitalDetails(hospital) {
-                // Update hospital header
-                document.getElementById('hospitalName').textContent = hospital.Name;
-                document.getElementById('hospitalGrade').textContent = hospital.TIER_1_GRADE_Lown_Composite;
-                document.getElementById('hospitalGrade').className = `grade-circle grade-${hospital.TIER_1_GRADE_Lown_Composite}`;
-                
-                // Update hospital information
-                document.getElementById('hospitalInfo').innerHTML = `
-                    <div class="info-item">
-                        <div class="info-label">Address</div>
-                        <div class="info-value">${hospital.Address}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">City</div>
-                        <div class="info-value">${hospital.City}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">State</div>
-                        <div class="info-value">${hospital.State}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">ZIP Code</div>
-                        <div class="info-value">${hospital.Zip}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Hospital Type</div>
-                        <div class="info-value">${hospital.TYPE_NonProfit ? 'Nonprofit' : 'For Profit'}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Location Type</div>
-                        <div class="info-value">${hospital.TYPE_urban ? 'Urban' : 'Rural'}</div>
-                    </div>
-                `;
-                
-                // Update all metric ratings
-                updateMetricRating('BalanceGrowth', hospital.BalanceGrowth);
-                updateMetricRating('Transparency', hospital.Transparency);
-                updateMetricRating('FiscalHealth', hospital.FiscalHealth);
-                updateMetricRating('Staffing', hospital.Staffing);
-                updateMetricRating('TaxBenefit', hospital.TaxBenefit);
-                updateMetricRating('QualityOfCBS', hospital.QualityOfCBS);
-                updateMetricRating('StrategicUse', hospital.StrategicUse);
-                updateMetricRating('FinancialBurden', hospital.FinancialBurden);
-                updateMetricRating('CharityCare', hospital.CharityCare);
-                updateMetricRating('MedicalDebt', hospital.MedicalDebt);
-                updateMetricRating('RangeOfServices', hospital.RangeOfServices);
-                updateMetricRating('DemographicAlignment', hospital.DemographicAlignment);
-                updateMetricRating('WorkforceTraining', hospital.WorkforceTraining);
-                updateMetricRating('PayEquityRatio', hospital.PayEquityRatio);
-            }
-
-            function updateMetricRating(metricName, value) {
-                const starsElement = document.getElementById(`stars${metricName}`);
-                const valueElement = document.getElementById(`value${metricName}`);
-                
-                if (starsElement && valueElement) {
-                    const rating = getStarRating(value);
-                    starsElement.innerHTML = generateStars(rating);
-                    valueElement.textContent = `${value}%`;
-                }
-            }
-
-            function getStarRating(percentage) {
-                const stars = Math.ceil(percentage / 20);
-                return Math.max(1, Math.min(5, stars));
-            }
-            
-            function generateStars(rating) {
-                let starsHtml = '';
-                for (let i = 1; i <= 5; i++) {
-                    if (i <= rating) {
-                        starsHtml += '<span class="star filled">★</span>';
-                    } else {
-                        starsHtml += '<span class="star">☆</span>';
-                    }
-                }
-                return starsHtml;
             }
 
             function initMainMap() {
