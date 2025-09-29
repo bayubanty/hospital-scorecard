@@ -94,17 +94,6 @@
             opacity: 0.9;
         }
 
-        /* GEORGIA WATCH Logo 
-        .logo-container {
-            position: absolute;
-            top: 20px;
-            left: 40px;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 10px 15px;
-            border-radius: 8px;
-            backdrop-filter: blur(5px);
-        }*/
         .logo-container {
           background-image: url('hospital-scorecard/GWLogo.png');
               background-repeat: no-repeat;
@@ -520,37 +509,37 @@
             margin-bottom: 8px;
         }
 
-        .metric-bars {
-            margin-top: 15px;
-        }
-
-        .metric-bar {
+        /* Star rating styles */
+        .star-rating {
+            display: flex;
+            align-items: center;
             margin-bottom: 15px;
         }
 
         .metric-name {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
+            width: 150px;
             font-size: 14px;
+        }
+
+        .stars {
+            display: flex;
+            margin-right: 10px;
+        }
+
+        .star {
+            color: #ddd;
+            font-size: 18px;
+            margin-right: 2px;
+        }
+
+        .star.filled {
+            color: #f48810;
         }
 
         .metric-value {
             font-weight: 500;
-        }
-
-        .bar-container {
-            height: 20px;
-            background-color: #e0e0e0;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .bar-fill {
-            height: 100%;
-            background: linear-gradient(to right, #6fb353, #0053a1);
-            border-radius: 10px;
-            transition: width 1s ease;
+            min-width: 40px;
+            text-align: right;
         }
 
         /* Content wrapper */
@@ -1535,6 +1524,27 @@
                 // Determine grade class for color coding
                 const gradeClass = `grade-${hospital.TIER_1_GRADE_Lown_Composite}`;
                 
+                // Function to convert percentage to star rating (1-5 stars)
+                function getStarRating(percentage) {
+                    // Convert percentage to 1-5 star rating
+                    // 0-20% = 1 star, 21-40% = 2 stars, 41-60% = 3 stars, 61-80% = 4 stars, 81-100% = 5 stars
+                    const stars = Math.ceil(percentage / 20);
+                    return Math.max(1, Math.min(5, stars)); // Ensure between 1 and 5
+                }
+                
+                // Function to generate star HTML
+                function generateStars(rating) {
+                    let starsHtml = '';
+                    for (let i = 1; i <= 5; i++) {
+                        if (i <= rating) {
+                            starsHtml += '<span class="star filled">★</span>';
+                        } else {
+                            starsHtml += '<span class="star">☆</span>';
+                        }
+                    }
+                    return starsHtml;
+                }
+                
                 // Set hospital details
                 container.innerHTML = `
                 <div class="details-grid">
@@ -1554,32 +1564,30 @@
                 </div>
                 <div class="metric-bars">
                     <h4>Performance Metrics</h4>
-                    <div class="metric-bar">
-                        <div class="metric-name">
-                            <span>Balance Growth</span>
-                            <span class="metric-value">${hospital.BalanceGrowth}%</span>
-                        </div>
-                        <div class="bar-container">
-                            <div class="bar-fill" style="width: ${hospital.BalanceGrowth}%"></div>
-                        </div>
+                    <div class="star-rating">
+                        <div class="metric-name">Balance Growth</div>
+                        <div class="stars">${generateStars(getStarRating(hospital.BalanceGrowth))}</div>
+                        <div class="metric-value">${hospital.BalanceGrowth}%</div>
                     </div>
-                    <div class="metric-bar">
-                        <div class="metric-name">
-                            <span>Transparency</span>
-                            <span class="metric-value">${hospital.Transparency}%</span>
-                        </div>
-                        <div class="bar-container">
-                            <div class="bar-fill" style="width: ${hospital.Transparency}%"></div>
-                        </div>
+                    <div class="star-rating">
+                        <div class="metric-name">Transparency</div>
+                        <div class="stars">${generateStars(getStarRating(hospital.Transparency))}</div>
+                        <div class="metric-value">${hospital.Transparency}%</div>
                     </div>
-                    <div class="metric-bar">
-                        <div class="metric-name">
-                            <span>Charity Care</span>
-                            <span class="metric-value">${hospital.CharityCare}%</span>
-                        </div>
-                        <div class="bar-container">
-                            <div class="bar-fill" style="width: ${hospital.CharityCare}%"></div>
-                        </div>
+                    <div class="star-rating">
+                        <div class="metric-name">Fiscal Health</div>
+                        <div class="stars">${generateStars(getStarRating(hospital.FiscalHealth))}</div>
+                        <div class="metric-value">${hospital.FiscalHealth}%</div>
+                    </div>
+                    <div class="star-rating">
+                        <div class="metric-name">Staffing</div>
+                        <div class="stars">${generateStars(getStarRating(hospital.Staffing))}</div>
+                        <div class="metric-value">${hospital.Staffing}%</div>
+                    </div>
+                    <div class="star-rating">
+                        <div class="metric-name">Charity Care</div>
+                        <div class="stars">${generateStars(getStarRating(hospital.CharityCare))}</div>
+                        <div class="metric-value">${hospital.CharityCare}%</div>
                     </div>
                 </div>
                 <div style="text-align: center; margin-top: 15px;">
